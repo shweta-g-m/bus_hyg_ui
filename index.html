@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Bus Hygiene Feedback</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: url("bmtc.jpg") no-repeat center/cover;
+}
+
+/* Container */
+.container {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(12px);
+    padding: 25px;
+    border-radius: 15px;
+
+    width: 90%;
+    max-width: 350px;
+
+    text-align: center;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+/* Title */
+h2 {
+    margin-bottom: 15px;
+    color: #000;
+}
+
+/* Inputs */
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+
+    border-radius: 8px;
+    border: none;
+    outline: none;
+}
+
+/* Stars */
+.stars span {
+    font-size: 28px;
+    cursor: pointer;
+    color: gray;
+    transition: 0.3s;
+}
+
+.stars span.active {
+    color: gold;
+}
+
+/* Button */
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+
+    background: linear-gradient(45deg, #4facfe, #00f2fe);
+    color: white;
+    border: none;
+    border-radius: 8px;
+
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* Success message */
+#thankYou {
+    display: none;
+    margin-top: 15px;
+
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 18px;
+
+    animation: pop 0.4s ease;
+}
+
+/* Animation */
+@keyframes pop {
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>🚌 Bus Cleanliness Feedback</h2>
+
+    <form onsubmit="handleSubmit(event)">
+
+        <input type="text" placeholder="Bus Number" required>
+
+        <!-- Hidden rating value -->
+        <input type="hidden" id="rating" name="rating">
+
+        <!-- Stars -->
+        <div class="stars">
+            <span onclick="rate(1)">★</span>
+            <span onclick="rate(2)">★</span>
+            <span onclick="rate(3)">★</span>
+            <span onclick="rate(4)">★</span>
+            <span onclick="rate(5)">★</span>
+        </div>
+
+        <input type="date" required>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="thankYou">✅ Submitted Successfully!</div>
+
+</div>
+
+<script>
+
+// ⭐ Store rating
+function rate(n) {
+    let stars = document.querySelectorAll(".stars span");
+
+    stars.forEach((star, index) => {
+        star.classList.toggle("active", index < n);
+    });
+
+    document.getElementById("rating").value = n;
+}
+
+// 🚀 Handle submit
+function handleSubmit(event) {
+    event.preventDefault();
+
+    // Show success message
+    document.getElementById("thankYou").style.display = "block";
+
+    // Clear form
+    document.querySelector("form").reset();
+
+    // Reset stars
+    document.querySelectorAll(".stars span").forEach(star => {
+        star.classList.remove("active");
+    });
+}
+
+</script>
+
+</body>
+</html>
